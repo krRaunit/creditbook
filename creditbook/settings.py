@@ -131,4 +131,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Add SITE_URL to construct QR code links
-SITE_URL = 'http://127.0.0.1:8000'  # Update to your site's domain in production
+ 
+SITE_URL = 'https://creditbook.onrender.com'  # Update to your site's domain in production
