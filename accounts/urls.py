@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from .views import health_check  # or use the appropriate path
+
 
 urlpatterns = [
     path('', views.home, name='home'),
