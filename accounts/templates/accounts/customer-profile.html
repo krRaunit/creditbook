@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user.username }}'s Profile</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            border-radius: 10px;
+        }
+        .chart-container {
+            width: 100%;
+            height: 300px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #b3daf1, #ffb6c1);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .logo {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-size: 64px;
+            font-weight: bold;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+            margin-top: 30px;
+        }
+
+        .logo span.credit {
+            color: #00bfff;
+        }
+
+        .logo span.book {
+            color: #ff007f;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #2c3e50;
+        }
+
+        .profile-section, .analytics-section {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .profile-section table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .profile-section th, .profile-section td {
+            padding: 15px;
+            text-align: left;
+            font-size: 16px;
+        }
+
+        .profile-section th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .profile-section tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .analytics-section canvas {
+            max-width: 100%;
+            margin-top: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .card p {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card .credit {
+            color:rgb(223, 32, 32);
+        }
+
+        .card .paid {
+            color: #e74c3c;
+        }
+
+        .analytics-section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        .analytics-section th, .analytics-section td {
+            padding: 15px;
+            text-align: left;
+            font-size: 16px;
+        }
+
+        .analytics-section th {
+            background-color: #9b59b6;
+            color: white;
+        }
+
+        .analytics-section tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .analytics-section tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .btn-container button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #3498db;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-container button:hover {
+            background-color:rgb(132, 198, 243);
+        }
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px; /* Spacing between buttons */
+            margin-top: 20px;
+        }
+        
+        .btn {
+            text-decoration: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: inline-block;
+            min-width: 200px;
+        }
+        
+        .projects-btn {
+            background: linear-gradient(135deg,rgb(16, 142, 192),rgb(188, 25, 194));
+            color: white;
+            border: 2px solid #0056b3;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .projects-btn:hover {
+            background: linear-gradient(135deg, #0056b3, #003f7f);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .score-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin-top: 10px;
+            position: relative;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .score-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        
+        .low {
+            background-color: #ff4d4d; /* Red for low scores */
+        }
+        
+        .medium {
+            background-color: #ffcc00; /* Orange for medium scores */
+        }
+        
+        .good {
+            background-color: #4caf50; /* Green for good scores */
+        }
+        
+        
+        /* Mobile-Friendly */
+        @media (max-width: 600px) {
+            .btn-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        
+            .btn {
+                min-width: 90%;
+            }
+        }
+        
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 48px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .btn-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-container button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <span class="credit">Credit</span><span class="book">Book</span>
+    </div>
+    <div class="container">
+        <h1>{{ user.username }}'s Profile</h1>
+
+        <div class="profile-section">
+            <h2>Personal Details</h2>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <td>{{ user.username }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ user.email }}</td>
+                </tr>
+                <tr>
+                    <th>Phone Number</th>
+                    <td>{{ user.profile.mobile}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="analytics-section">
+            <h2>Analytics</h2>
+            <div class="card">
+                <p><h3><span class="credit">Total Credit Taken from Market: </span>₹{{ total_credit }}</h3> </p>
+                <!--<p><span class="paid">Total Paid: </span>₹{{ total_paid }}</p>-->
+                <p>Average Time to Repay:{{ avg_time_to_repay }} days</p>
+                <div>
+                  <h3> Credit Score:</h3>
+                    <div id="scoreBar" class="score-bar"></div>
+                    <p>Customer Credit Score (5-100):<span id="scoreValue">{{ customer_score }}</span></p>
+                
+                </div>
+
+            </div>
+            <div class="container mt-4">
+                <h2 class="text-center">Customer Analytics Dashboard</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card p-3 shadow-sm">
+                            <h5 class="text-center">Credit vs Paid Ratio</h5>
+                            <canvas id="creditPieChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card p-3 shadow-sm">
+                            <h5 class="text-center">Monthly Credit Trends</h5>
+                            <canvas id="creditLineChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <script>
+                // Function to update the score bar based on the customer score
+function updateScoreBar() {
+    var score = parseInt(document.getElementById("scoreValue").innerText); // Get the score value
+    var scoreBar = document.getElementById("scoreBar");
+    var scoreFill = document.createElement("div");
+    scoreFill.classList.add("score-fill");
+
+    // Calculate the width of the score bar (percentage of 100)
+    var width = (score / 100) * 100;
+
+    scoreFill.style.width = width + "%"; // Set width based on score percentage
+
+    // Determine color based on score
+    if (score <= 40) {
+        
+        scoreFill.classList.add("low");
+    } else if (score <= 70) {
+        
+        scoreFill.classList.add("medium");
+    } else {
+        scoreFill.classList.add("good");
+    }
+
+    // Remove any existing score fill (if exists) and append the new one
+    scoreBar.innerHTML = "";
+    scoreBar.appendChild(scoreFill);
+}
+
+// Call the function to initialize the score bar
+updateScoreBar();
+
+                const creditPieChart = new Chart(document.getElementById("creditPieChart"), {
+                    type: 'pie',
+                    data: {
+                        labels: ["Credit", "Paid"],
+                        datasets: [{
+                            data: [60, 40],
+                            backgroundColor: ["#ff6384", "#36a2eb"]
+                        }]
+                    }
+                });
+        
+                const creditLineChart = new Chart(document.getElementById("creditLineChart"), {
+                    type: 'line',
+                    data: {
+                        labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+                        datasets: [{
+                            label: "Credit Amount",
+                            data: [500, 700, 600, 800, 900],
+                            borderColor: "#4bc0c0",
+                            fill: false
+                        }]
+                    }
+                });
+            </script>      
+            <h2>Credit History:</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Comment</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for payment in payments %}
+                    <tr>
+                        <td data-label="Date">{{ payment.timestamp|date:"d M Y, H:i" }}</td>
+                        <td data-label="Amount" class="amount {% if payment.amount > 0 %}positive{% else %}negative{% endif %}">
+                            {{ payment.amount|floatformat:2 }}
+                        </td>
+                        <td>{{ payment.comment }}</td>
+                        <td>{{ payment.status }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <br>
+            <br>
+            <a href="{% url 'export_customer_profile_excel' username=user.username %}" class="btn projects-btn">
+                Download Credit Details (Excel)
+            </a>
+            
+        </div>
+
+        <div class="btn-container">
+            <a href="{% url 'merchant-dashboard' %}" class="btn projects-btn">Back to Dashboard</a>
+            <a href="{% url 'merchant-customers' %}" class="btn projects-btn">Back to Customers's List</a>
+            </div>
+    </div>
+</body>
+</html>

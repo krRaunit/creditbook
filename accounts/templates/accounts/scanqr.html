@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Scanner</title>
+    <link rel="stylesheet" href="#">
+    <!-- Include the QR Code Scanner Library -->
+    <script src="https://cdn.jsdelivr.net/npm/html5-qrcode/minified/html5-qrcode.min.js"></script>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 50px;
+}
+
+#reader {
+    width: 300px;
+    margin: 0 auto 20px auto;
+}
+/* CreditBook Logo */
+.logo {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-size: 64px;
+    font-weight: bold;
+    text-shadow: 
+        1px 1px 0px rgb(252, 251, 251),  /* bottom-right */
+        -1px -1px 0px rgb(252, 251, 251), /* top-left */
+        -1px 1px 0px rgb(252, 251, 251),  /* bottom-left */
+        1px -1px 0px rgb(252, 251, 251),  /* top-right */
+        1px 0px 0px rgb(252, 251, 251),   /* right */
+        -1px 0px 0px rgb(252, 251, 251),  /* left */
+        0px 1px 0px rgb(252, 251, 251),   /* bottom */
+        0px -1px 0px rgb(252, 251, 251);  /* top */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.credit {
+    color: #00bfff; /* Light blue for 'Credit' */
+}
+
+.book {
+    color: #ff007f; /* Hot pink for 'Book' */
+}
+
+#result {
+    font-size: 1.2em;
+    color: green;
+    margin-top: 20px;
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <span class="credit">Credit</span><span class="book">Book</span>
+    </div>
+      <br>
+    <!-- QR Code Scanner Container -->
+    <div id="reader"></div>
+    <p id="result"><h2 style="color: rgb(67, 8, 123);">Scan to take Credit</h2><span id="qr-result"></span></p>
+
+    <script>
+        // Function to validate if the decoded text is a URL
+        function isValidURL(string) {
+            try {
+                new URL(string);
+                return true;
+            } catch (_) {
+                return false;
+            }
+        }
+
+        // QR Code Scanner
+        const qrResult = document.getElementById('qr-result');
+
+        function onScanSuccess(decodedText, decodedResult) {
+            qrResult.innerText = decodedText;
+
+            // Check if the decoded text is a URL
+            if (isValidURL(decodedText)) {
+                window.location.href = decodedText; // Redirect to the URL
+            }
+        }
+
+        function onScanFailure(error) {
+            // Handle scan failure, if needed
+        }
+
+        const html5QrCode = new Html5Qrcode("reader");
+        html5QrCode.start({ facingMode: "environment" }, {
+            fps: 10,
+            qrbox: 250
+        }, onScanSuccess, onScanFailure);
+    </script>
+</body>
+</html>
+
+
+
+<!--
+
+<div class="qr-scanner">
+    <h2>Scan QR Code</h2>
+    <video id="preview"></video>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.0.9/html5-qrcode.min.js"></script>
+<script>
+    let scanner = new Html5QrcodeScanner(
+        "preview", { fps: 10, qrbox: 250 }
+    );
+
+    scanner.render(function(decodedText, decodedResult) {
+        window.location.href = decodedText;  // Redirect to the scanned QR URL
+    });
+</script>
+-->

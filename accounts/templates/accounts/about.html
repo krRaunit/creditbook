@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - CreditBook</title>
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #b3daf1, #ffb6c1);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* Logo Styles */
+        .logo {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-size: 64px;
+            font-weight: bold;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+            margin-top: 30px;
+        }
+        .logo span.credit {
+            color: #00bfff;
+        }
+        .logo span.book {
+            color: #ff007f;
+        }
+
+        /* Section Styles */
+        .section {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            max-width: 800px;
+            width: 90%;
+            margin: 20px auto;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #4A4A4A;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .section p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        
+        /* Features Section */
+        .features {
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px solid #ff007f;
+            border-radius: 15px;
+            background-color: #f9f9f9;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .features h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #ff007f;
+        }
+
+        .features ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .features ul li {
+            font-size: 1rem;
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .features ul li::before {
+            content: "✔️";
+            margin-right: 10px;
+            color: #4A90E2;
+        }
+
+        /* About Me Section */
+        .about-me {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #4A4A4A;
+            line-height: 1.6;
+        }
+
+        .about-me a {
+            color: #ff007f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .about-me a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer Section */
+        footer {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        footer a {
+            color: #4A90E2;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 12px 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: inline-block;
+            min-width: 200px;
+            background: linear-gradient(135deg,rgb(16, 142, 192),rgb(188, 25, 194));
+            color: white;
+            border: 2px solid #0056b3;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:hover {
+            background: linear-gradient(135deg, #0056b3, #003f7f);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo -->
+    <div class="logo">
+        <span class="credit">Credit</span><span class="book">Book</span>
+    </div>
+
+   <!-- About Section -->
+<div class="section">
+    <h1>About CreditBook</h1>
+    <p>
+        CreditBook is a digital platform designed to streamline credit management between merchants and customers. 
+        It enables merchants to maintain accurate, real-time digital records of credit transactions, 
+        allowing customers to track their credit history effortlessly.
+    </p>
+    <p>
+        Featuring QR code integration, user-friendly dashboards, and advanced analytics, 
+        CreditBook simplifies and enhances the traditional credit recording process, 
+        making it seamless and transparent for both parties.
+    </p>
+</div>
+
+<!-- New & Enhanced Features Section -->
+<div class="features">
+    <h2>New & Enhanced Features</h2>
+    <ul>
+        <li>Merchants can now access data of customers willing to take credit from them.</li>
+        <li>Merchants can view their total credit taken from the market and the amount repaid.</li>
+        <li>Customers receive a credit score based on their repayment behavior.</li>
+        <li>Analysis of how long customers take to return credit.</li>
+        <li>Month-wise credit analytics with interactive graphs.</li>
+        <li>Pie chart visualization of total credit taken vs. total amount repaid.</li>
+    </ul>
+</div>
+
+<!-- Key Features Section -->
+<div class="features">
+    <h2>Key Features</h2>
+    <ul>
+        <li>Digital credit transaction management.</li>
+        <li>Real-time credit record updates.</li>
+        <li>QR code integration for effortless transactions.</li>
+        <li>User-friendly dashboards for merchants and customers.</li>
+        <li>Automated analytics for better credit tracking.</li>
+        <li>Customer scoring system for responsible lending.</li>
+        <li>Comprehensive reports exportable in Excel format.</li>
+    </ul>
+</div>
+
+<!-- About Me Section -->
+<div class="section">
+    <h1>About Me</h1>
+    <p class="about-me">
+        Hello! I'm Raunit Kumar, developer of CreditBook, passionate about building innovative solutions to simplify everyday tasks. 
+        Visit my portfolio to explore more projects and learn more about me:
+        <a href="https://krraunit.github.io/My_Portfolio/home.html" target="_blank">My Portfolio</a>.
+    </p>
+</div>
+<a href="{% url 'home' %}" class="btn">Back to Home</a>
+
+<!-- Footer Section -->
+<footer>
+    &copy; 2025 CreditBook. All rights reserved.
+</footer>
+</body>
+</html>

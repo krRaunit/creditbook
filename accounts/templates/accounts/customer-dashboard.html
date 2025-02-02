@@ -1,0 +1,385 @@
+{% extends "layouts/app.html" %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard</title>
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: cursive;
+            background-color: #f3f4f6;
+            background-image: url("{% static 'images/cb-bg.jpg' %}");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        .logo {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-size: 64px;
+            font-weight: bold;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+            margin: 10px auto;
+            text-align: center;
+        }
+
+        .credit {
+            color: #00bfff;
+        }
+
+        .book {
+            color: #ff007f;
+        }
+
+        nav {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: #070000;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 8px 12px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background-color: #00CDFE;
+            color: #ffffff;
+            border-radius: 5px;
+        }
+
+        /* Payment History Section */
+.section1 {
+    background-color: rgba(255, 255, 255, 0.95);
+    margin: 20px auto;
+    justify-content: center;
+    align-items: center;
+    color: rgb(3, 16, 49);
+    height: auto;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 870px;
+    padding: 20px;
+    border-radius: 12px; /* Rounded corners */
+}
+
+/* General Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  
+    font-size: 14px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for the table */
+    border-radius: 8px; /* Rounded corners for the table */
+    overflow: hidden; /* Ensure corners look clean */
+}
+
+thead th {
+    background-color: #00509e; /* Rich blue header */
+    color: #ffffff;
+    padding: 14px;
+    text-align: left;
+    font-weight: bold;
+    text-transform: uppercase; /* Header text in uppercase */
+    letter-spacing: 1px; /* Spacing for readability */
+}
+
+tbody tr {
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #f3f6fc; /* Light blue-gray for alternate rows */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+tbody td {
+    border: 1px solid #e0e0e0;
+    padding: 12px;
+}
+
+tbody tr:hover {
+    background-color: #d6e9ff; /* Soft blue hover effect */
+    transform: scale(1.02); /* Subtle scaling effect */
+}
+
+td.status {
+    font-weight: bold;
+    text-align: center;
+    font-size: 15px;
+    text-transform: capitalize;
+}
+
+td.amount {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: right; /* Align amounts to the right */
+    padding-right: 20px; /* Add spacing for clarity */
+}
+
+.amount.positive {
+    color: #009933; /* Green for positive amounts */
+}
+
+.amount.negative {
+    color: #cc0000; /* Red for negative amounts */
+}
+
+/* Mobile Styles */
+@media (max-width: 480px) {
+    table {
+        font-size: 12px;
+    }
+
+    thead {
+        display: none; /* Hide table headers for mobile */
+    }
+
+    tbody td {
+        display: block;
+        text-align: right;
+        padding: 8px 10px;
+        position: relative;
+        border: none;
+        border-bottom: 1px solid #e0e0e0; /* Separator line */
+    }
+
+    tbody td::before {
+        content: attr(data-label); /* Add header label before data */
+        position: absolute;
+        left: 10px;
+        text-align: left;
+        font-weight: bold;
+        color: #555;
+    }
+
+    tbody tr {
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        background: #fff;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Card-like appearance */
+    }
+
+    td.amount {
+        font-size: 14px;
+        padding-right: 10px;
+    }
+}
+
+        
+       
+        
+/* Customer Dashboard Section */
+.section {
+    background-color: rgba(255, 0, 127, 0.9);
+    margin: 20px auto;
+    justify-content: center;
+    align-items: center;
+    color: rgb(250, 251, 252);
+    height: auto;
+    box-shadow: 0px 0px 10px #595a5ab7;
+    width: 90%;
+    max-width: 870px;
+    padding: 20px;
+    text-align: center; /* Center align text and buttons */
+}
+
+/* Buttons Styling */
+.buttons {
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap; /* Wrap buttons in case of overflow */
+    gap: 10px; /* Add spacing between buttons */
+    justify-content: center; /* Center the buttons */
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    text-align: center;
+    min-width: 120px; /* Ensure buttons have consistent width */
+    color: #f8f8f8;
+    background-color: #000000; /* Default button background */
+    border: 2px solid #f8f8f8; /* Button border */
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #ffffff; /* Hover effect */
+    color: #000000;
+}
+
+.logout-btn {
+    background-color: #00CDFE; /* Logout button color */
+    color: #ffffff;
+    margin-top: 10px; /* Add margin for spacing */
+}
+
+.logout-btn:hover {
+    background-color: #0f0000; /* Darker color on hover */
+    color: #ffffff;
+}
+
+/* Mobile Styles */
+
+    @media (max-width: 480px) {
+        .logo {
+            font-size: 50px;
+        }
+
+        nav {
+            margin-top: 10px;
+            flex-direction: column;
+        }
+
+        .nav-links {
+            flex-direction: column;
+            width: 100%;
+            text-align: center;
+        }
+
+        .section,
+        .section1 {
+            width: 90%;
+            margin: 20px auto;
+            height: auto;
+            box-shadow: none;
+        }
+
+
+    .buttons {
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 15px; /* Add larger gap between buttons */
+    }
+
+    .btn {
+        font-size: 14px;
+        padding: 10px 15px;
+        width: 100%; /* Buttons take full width in mobile */
+    }
+
+    .logout-btn {
+        width: 100%; /* Full width for logout button in mobile */
+    }
+}
+
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="heading">
+            <div class="logo">
+                <span class="credit">Credit</span><span class="book">Book</span>
+            </div>
+        </div>
+
+        <ul class="nav-links">
+            <a href="{% url 'customer-dashboard' %}">Home</a>
+            <a href="{% url 'scan-qr' %}">Scan</a>
+            <a href="{% url 'about' %}">About Us</a>
+            <a href="{% url 'help' %}">Help</a>
+        </ul>
+    </nav>
+
+    <!-- Customer Dashboard -->
+    <div class="section">
+        <div class="login-container">
+            <h1 style="font-family: cursive;">Customer Dashboard</h1>
+            <h2 style="color: rgb(232, 232, 71); font-family: Georgia;">Welcome, {{ user.username }}</h2>
+            <p>Email: {{ user.email }}</p>
+        <br>
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+            
+        </div>
+        <br><br>
+        <div class="buttons">
+            <a href="{% url 'scan-qr' %}" class="btn projects-btn">Pay</a>
+            <a href="#" class="btn projects-btn">Credit History</a>
+            <a href="#" class="btn projects-btn">Merchants</a>
+            <a href="#" class="btn projects-btn">Personal Details</a>
+        </div>
+        <BR>
+        <center>
+            <a href="{% url 'logout' %}" class="btn logout-btn">Logout</a>
+        </center>
+        
+        <br>
+        
+    </div>
+
+    <!-- Payment History -->
+   
+    <div class="section1">
+
+        <h2>Payment History</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Merchant</th>
+                    <th>Amount</th>
+                    <th>Comment</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for payment in payments %}
+                <tr>
+                    <td data-label="Merchant">{{ payment.receiver.username }}</td>
+                    <td data-label="Amount" class="amount {% if payment.amount > 0 %}positive{% else %}negative{% endif %}">
+                        {{ payment.amount|floatformat:2 }}
+                    </td>
+                    <td data-label="Comment">{{ payment.comment }}</td>
+                    <td data-label="Date">{{ payment.timestamp|date:"d M Y, H:i" }}</td>
+                    <td data-label="Status" class="status">{{ payment.status }}</td>
+                </tr>
+                
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    
+
+</body>
+
+</html>
+{% endblock %}

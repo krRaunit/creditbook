@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - CreditBook</title>
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #b3daf1, #ffb6c1);
+            color: #333;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Logo Styles */
+        .logo {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-size: 64px;
+            font-weight: bold;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+            margin: 20px 0;
+        }
+        .logo span.credit { color: #00bfff; }
+        .logo span.book { color: #ff007f; }
+
+        /* Container */
+        .container {
+            width: 90%;
+            max-width: 900px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        thead {
+            background: #007bff;
+            color: white;
+        }
+        thead th {
+            padding: 12px;
+            text-transform: uppercase;
+        }
+        tbody tr:nth-child(odd) { background: #f9f9f9; }
+        tbody tr:hover { background: #ffefef; }
+        tbody td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* Buttons */
+        .styled-button {
+            display: inline-block;
+            padding: 12px 18px;
+            font-size: 16px;
+            font-weight: bold;
+            background: #007bff;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: 0.3s ease-in-out;
+        }
+        .styled-button:hover { background: #0056b3; transform: scale(1.05); }
+        .dashboard-link { text-decoration: none; font-weight: bold; color: #007bff; }
+        .dashboard-link:hover { color: #003d80; }
+
+    </style>
+</head>
+<body>
+    <!-- Logo -->
+    <div class="logo">
+        <span class="credit">Credit</span><span class="book">Book</span>
+    </div>
+    
+    <div class="container">
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <!--
+        <h2>Customer Credit List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Total Credit</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for customer in customer_data %}
+                <tr>
+                    <td><a href="{% url 'customer-profile' customer.sender__username %}">{{ customer.sender__username }}</a></td>
+                    <td>{{ customer.total_credit }}</td>
+                    <td>
+                        <form method="post" action="{% url 'mark_as_paid' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="customer_username" value="{{ customer.sender__username }}">
+                            <button type="submit" class="styled-button">Mark as Paid</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        -->
+        <h2>Customer Credit List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Total Credit</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for customer in customer_data %}
+                <tr>
+                    <td>
+                        <a href="{% url 'customer-profile' customer.sender__username %}">
+                            {{ customer.sender__username }}
+                        </a>
+                    </td>
+                    <td>
+                        {% if customer.total_credit == None or customer.total_credit == 0 %}
+                            0
+                        {% else %}
+                            {{ customer.total_credit }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        <form method="post" action="{% url 'mark_as_paid' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="customer_username" value="{{ customer.sender__username }}">
+                            <button type="submit" class="styled-button">Mark as Paid</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+    </div>
+    
+    <br>
+    <a href="{% url 'export-customers-excel' %}" class="styled-button">Download Credit Details (Excel)</a>
+    <br><br>
+    <h3>
+        <a href="{% url 'merchant-dashboard' %}" class="dashboard-link">Go to Dashboard</a>
+    </h3>
+</body>
+</html>

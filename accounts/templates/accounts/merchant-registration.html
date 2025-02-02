@@ -1,0 +1,256 @@
+<!-- templates/accounts/merchant-registration.html -->
+{% extends "layouts/app.html" %}
+{% load static %}
+
+{% block content %}
+<nav>
+    <div class="heading">
+        <div class="logo">
+            <span class="credit">Credit</span><span class="book">Book</span>
+        </div>
+    </div>
+
+    <ul class="nav-links">
+           <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'merchant-login' %}">Login</a>
+            <a href="{% url 'about' %}">About Us</a>
+            <a href="{% url 'help' %}">Help</a>
+    </ul>
+</nav>
+
+<div class="login-section"> 
+    <h1>Create your Merchant Account</h1>
+    <form method="POST" action="{% url 'merchant-registration' %}">
+        {% csrf_token %}
+        
+        <div class="input-group">
+            <label for="id_username">Merchant ID:</label>
+            <input type="text" id="id_username" name="username" required>
+            <span class="text-danger">{{ form.username.errors }}</span>
+        </div>
+        
+        <div class="input-group">
+            <label for="id_email">Email:</label>
+            <input type="email" id="id_email" name="email" required>
+            <span class="text-danger">{{ form.email.errors }}</span>
+        </div>
+
+        <div class="input-group">
+            <label for="id_mobile">Phone number:</label>
+            <input type="text" id="id_mobile" name="mobile" required>
+            <span class="text-danger">{{ form.mobile.errors }}</span>
+        </div>
+
+        <div class="input-group">
+            <label for="id_password1">Password:</label>
+            <input type="password" id="id_password1" name="password" required>
+            <span class="text-danger">{{ form.password.errors }}</span>
+        </div>
+
+        <div class="input-group">
+            <label for="id_password2">Confirm Password:</label>
+            <input type="password" id="id_password2" name="confirm_password" required>
+            <span class="text-danger">{{ form.confirm_password.errors }}</span>
+        </div>
+        
+        <button type="submit" class="login-button">Create Account</button>
+    </form>
+
+    <div class="buttons">
+        Have an account? <a href="{% url 'merchant-login' %}">Login</a>
+    </div>
+</div>
+<!--
+<div class="help-section">
+    <h2>EXTRAA <span style="font-size: 1.5rem;">help:</span></h2>
+    <p>Need assistance? Contact us!</p>
+</div>
+-->
+<style>
+    /* General body styling */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Montserrat", sans-serif;
+        background-color: #f3f4f6;
+        background-image: url("{% static 'images/cb-bg.jpg' %}");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+
+    /* Navbar and logo styles */
+    nav {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 15px;
+    }
+
+    .nav-links a {
+        color: #070000;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 18px;
+        padding: 8px 12px;
+        transition: background-color 0.3s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+        background-color: #00CDFE;
+        color: #ffffff;
+        border-radius: 5px;
+    }
+
+    .logo {
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+        font-size: 64px;
+        font-weight: bold;
+        text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .credit {
+        color: #00bfff;
+    }
+
+    .book {
+        color: #ff007f;
+    }
+
+    /* Login section styles */
+    .login-section {
+        background-color: #00CDFE;
+        max-width: 425px;
+        margin: 100px auto;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        color: #f7f7f7;
+        text-align: center;
+    }
+
+    .login-section h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    .input-group {
+        margin-bottom: 15px;
+        text-align: left;
+    }
+
+    .input-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .input-group input {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #ffffff;
+        color: #333;
+    }
+
+    .login-button {
+        background-color: #ff007f;
+        color: #fff;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 10px;
+        font-size: 16px;
+    }
+
+    .login-button:hover {
+        background-color: #000000;
+        color: #ffffff;
+    }
+
+    /* Buttons under login section */
+    .buttons {
+        margin-top: 20px;
+    }
+
+    /* Help section */
+    .help-section {
+        background-color: #00CDFE;
+        max-width: 300px;
+        margin: 30px auto;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        color: #031031;
+        text-align: center;
+    }
+
+    .help-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+
+    .help-section p {
+        font-size: 1rem;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 768px) {
+        nav {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .nav-links {
+            margin-top: 10px;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .login-section {
+            margin-top: 20px;
+            padding: 20px;
+            width: 90%;
+        }
+
+        .help-section {
+            padding: 15px;
+        }
+
+        .nav-links a {
+            font-size: 16px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .login-section {
+            padding: 15px;
+        }
+
+        .help-section {
+            padding: 10px;
+        }
+
+        .login-button {
+            font-size: 14px;
+            padding: 10px 15px;
+        }
+
+        .logo {
+            font-size: 50px;
+        }
+    }
+</style>
+{% endblock %}

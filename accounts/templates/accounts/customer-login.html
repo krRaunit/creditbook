@@ -1,0 +1,269 @@
+{% extends "layouts/app.html" %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Login</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* General Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Montserrat", sans-serif;
+            background-color: #f3f4f6;
+            color: #333;
+            background-image: url("{% static 'images/cb-bg.jpg' %}");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: #070000;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 8px 12px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background-color: #00CDFE;
+            color: #ffffff;
+            border-radius: 5px;
+        }
+
+        /* Login Section Styling */
+        .login-section {
+            background-color: rgba(255, 0, 127, 0.9);
+            max-width: 425px;
+            margin: 100px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            color: #f7f7f7;
+            text-align: center;
+        }
+
+        .login-section h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #ffffff;
+            color: #333;
+        }
+
+        .login-button {
+            background-color: #00CDFE;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .login-button:hover {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .btn {
+            background-color: #00CDFE;
+            color: #fff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        /* Help Section Styling */
+        .help-section {
+            background-color: rgba(255, 0, 127, 0.9);
+            max-width: 300px;
+            margin: 30px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            color: #031031;
+            text-align: center;
+        }
+
+        .help-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .help-section p {
+            font-size: 1rem;
+        }
+
+        /* Logo Styling */
+        .logo {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-size: 64px;
+            font-weight: bold;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+            margin-right: auto;
+        }
+
+        .credit {
+            color: #00bfff;
+        }
+
+        .book {
+            color: #ff007f;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-links {
+                margin-top: 10px;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .login-section {
+                margin-top: 20px;
+                padding: 20px;
+                width: 90%;
+            }
+
+            .help-section {
+                padding: 15px;
+            }
+
+            .nav-links a {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-section {
+                padding: 15px;
+            }
+
+            .help-section {
+                padding: 10px;
+            }
+
+            .btn {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+
+            .logo {
+                font-size: 50px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logo">
+            <span class="credit">Credit</span><span class="book">Book</span>
+        </div>
+        <ul class="nav-links">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'customer-login' %}">Login</a>
+            <a href="{% url 'about' %}">About Us</a>
+            <a href="{% url 'help' %}">Help</a>
+        </ul>
+    </nav>
+
+    <div class="login-section">
+        <h1>Customer Login</h1>
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <form method="POST" action="{% url 'customer-login' %}">
+            {% csrf_token %}
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required placeholder="Enter your username">
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter your password" autocomplete="off">
+            </div>
+            <button type="submit" class="login-button">Log In</button>
+        </form>
+        <a href="#" style="color: #f7f7f7; text-decoration: underline; display: block; margin-top: 10px;">Forget password?</a>
+        <div class="buttons">
+            <a href="{% url 'customer-registration' %}" class="btn">Create a New Account</a>
+        </div>
+    </div>
+
+   <!-- <div class="help-section">
+        <h2>Need HELP?</h2>
+        <p>Contact us for any assistance!</p>
+    </div> -->
+</body>
+
+</html>
+{% endblock %}

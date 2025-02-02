@@ -1,0 +1,483 @@
+{% extends "layouts/app.html" %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merchant Dashboard</title>
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: cursive;
+            background-color: #f3f4f6;
+            background-image: url("{% static 'images/cb-bg.jpg' %}");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        
+        /* Payment Requests Section */
+section {
+    background-color: rgba(255, 255, 255, 0.95);
+    margin: 20px auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 870px;
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+    font-family: 'Arial', sans-serif;
+}
+
+section h2 {
+    text-align: center;
+    color: #003366;
+}
+
+
+
+/* Buttons */
+form button {
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+}
+
+
+/* Mobile Styling */
+@media screen and (max-width: 600px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
+    }
+
+    thead {
+        display: none; /* Hide table headers */
+    }
+
+    tbody tr {
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 10px;
+        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    tbody td {
+        border: none;
+        padding: 8px;
+        position: relative;
+        text-align: right;
+    }
+
+    tbody td:before {
+        content: attr(data-label); /* Display column name */
+        font-weight: bold;
+        float: left;
+        color: #666;
+    }
+
+    form button {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+
+        .logo {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-size: 64px;
+            font-weight: bold;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+            margin: 10px auto;
+            text-align: center;
+        }
+
+        .credit {
+            color: #00bfff;
+        }
+
+        .book {
+            color: #ff007f;
+        }
+         
+       
+        nav {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: #070000;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 8px 12px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background-color: #00CDFE;
+            color: #ffffff;
+            border-radius: 5px;
+        }
+
+        
+        section1 {
+            background-color: rgba(255, 255, 255, 0.9);
+            margin: 20px auto;
+            justify-content: center;
+            align-items: center;
+            color: rgb(0, 4, 7);
+            height: auto;
+            box-shadow: 0px 0px 10px #595a5ab7;
+            width: 60%;
+            padding: 20px;
+        }
+
+        /* Dashboard Buttons Section */
+        
+        .dashboard-container h1 {
+            color: #f6f8f8;
+            margin-bottom: 20px;
+        }
+
+       
+
+        /*NEW*/
+        /* Customer Dashboard Section */
+        .dashboard-container {
+    background-color: rgba(0, 205, 254, 0.9);
+    margin: 20px auto;
+    justify-content: center;
+    align-items: center;
+    color: rgb(250, 251, 252);
+    height: auto;
+    box-shadow: 0px 0px 10px #595a5ab7;
+    width: 90%;
+    max-width: 870px;
+    padding: 20px;
+    text-align: center; /* Center align text and buttons */
+}
+
+/* Buttons Styling */
+.buttons {
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap; /* Wrap buttons in case of overflow */
+    gap: 10px; /* Add spacing between buttons */
+    justify-content: center; /* Center the buttons */
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    text-align: center;
+    min-width: 120px; /* Ensure buttons have consistent width */
+    color: #f8f8f8;
+    background-color: #000000; /* Default button background */
+    border: 2px solid #f8f8f8; /* Button border */
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #ffffff; /* Hover effect */
+    color: #000000;
+}
+
+.logout-btn {
+    background-color: #ff007f; /* Logout button color */
+    color: #ffffff;
+    margin-top: 10px; /* Add margin for spacing */
+}
+
+.logout-btn:hover {
+    background-color: #0f0000; /* Darker color on hover */
+    color: #ffffff;
+}
+        
+
+        /*MOBILE STYLE*/
+    @media (max-width: 480px) {
+        .logo {
+            font-size: 50px;
+        }
+
+        nav {
+            margin-top: 10px;
+            flex-direction: column;
+        }
+
+        .nav-links {
+            flex-direction: column;
+            width: 100%;
+            text-align: center;
+        }
+
+        .section,
+        .section1 {
+            width: 90%;
+            margin: 20px auto;
+            height: auto;
+            box-shadow: none;
+        }
+
+
+    .buttons {
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 15px; /* Add larger gap between buttons */
+    }
+
+    .btn {
+        font-size: 14px;
+        padding: 10px 15px;
+        width: 100%; /* Buttons take full width in mobile */
+    }
+    /* Mark as Paid Button */
+ .paid-btn {
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+ .paid-btn:hover {
+    background-color: darkblue;
+}
+
+    .logout-btn {
+        width: 100%; /* Full width for logout button in mobile */
+    }
+
+    }
+    /*NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW*/
+    /* Table Styling */
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.styled-table thead tr {
+    background-color: #4CAF50;
+    color: white;
+    text-align: left;
+}
+
+.styled-table th, .styled-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+.styled-table tbody tr:nth-child(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:nth-child(odd) {
+    background-color: #eaf7ea;
+}
+
+.styled-table tbody tr:hover {
+    background-color: #d6e9ff; /* Soft blue hover effect */
+    transform: scale(1.02); /* Subtle scaling effect */
+}
+
+/* Amount Highlighting */
+.amount.positive {
+    color: #28a745; /* Green for positive values */
+}
+
+.amount.negative {
+    color: #dc3545; /* Red for negative values */
+}
+
+/* Button Styling */
+.btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-right: 5px;
+}
+
+.accept-btn {
+    background-color: #4CAF50; /* Green */
+}
+
+.delete-btn {
+    background-color: #FF9800;
+    color: white;
+}
+
+.accept-btn:hover {
+    background-color: #45a049;
+}
+
+.reject-btn {
+    background-color: #f44336; /* Red */
+}
+
+.reject-btn:hover {
+    background-color: #e03131;
+}
+
+.paid-btn {
+    background-color: #007BFF; /* Blue */
+}
+
+.paid-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Status Styling */
+.status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.status.rejected {
+    background-color: #f44336;
+    color: white;
+}
+
+.status.paid {
+    background-color: #4CAF50;
+    color: white;
+}
+
+
+
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="heading">
+            <div class="logo">
+                <span class="credit">Credit</span><span class="book">Book</span>
+            </div>
+        </div>
+
+        <ul class="nav-links">
+            <a href="{% url 'merchant-dashboard' %}">Home</a>
+            <a href="{% url 'my-qr' %}">My QR</a>
+            <a href="{% url 'about' %}">About Us</a>
+            <a href="{% url 'help' %}">Help</a>
+        </ul>
+    </nav>
+
+    <section1>
+        <div class="dashboard-container">
+            <h1 style="font-family: cursive;">Merchant Dashboard</h1>
+            <h2 style="color: rgb(232, 232, 71); font-family: Georgia;">Welcome, {{ user.username }}</h2>
+            <p>Email: {{ user.email }}</p>
+             <br>
+             {% if messages %}
+             <ul>
+                 {% for message in messages %}
+                 <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                 {% endfor %}
+             </ul>
+             {% endif %}
+            <div class="buttons">
+                <a href="{% url 'my-qr' %}" class="btn btn-primary">My QR</a>
+                <a href="#" class="btn">Credit History</a>
+                <a href="{% url 'merchant-customers' %}" class="btn">Customers</a>
+                <a href="#" class="btn">Merchant Details</a>
+            </div>
+            <br>
+            <center> <a href="{% url 'logout' %}" class="btn logout-btn">Logout</a>
+            </center>
+        </div>
+    </section1>
+
+    <section>
+        <h2>Payment Requests</h2>
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>Sender</th>
+            <th>Amount</th>
+            <th>Comment</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for payment in payments %}
+        <tr>
+            <td data-label="Sender">{{ payment.sender.username }}</td>
+            <td data-label="Amount" class="amount {% if payment.amount > 0 %}positive{% else %}negative{% endif %}">
+                {{ payment.amount|floatformat:2 }}
+            </td>
+            <td data-label="Comment">{{ payment.comment }}</td>
+            <td data-label="Date">{{ payment.timestamp|date:"d M Y, H:i" }}</td>
+            <td data-label="Status">{{ payment.status }}</td>
+            <td data-label="Action">
+                {% if payment.status == 'Pending' %}
+                    <!-- Accept Payment Form -->
+                    <form action="{% url 'accept_payment' payment.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="payment_id" value="{{ payment.id }}">
+                        <button type="submit" class="btn accept-btn">Accept</button>
+                    </form>
+                    <!-- Reject Payment Form -->
+                    <form action="{% url 'reject_payment' payment.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="payment_id" value="{{ payment.id }}">
+                        <button type="submit" class="btn reject-btn" onclick="return confirm('Are you sure you want to reject this request?');">Reject</button>
+                    </form>
+                {% elif payment.status == 'Rejected' %}
+                    <!-- Delete Button Appears for Rejected Payments -->
+                    <form action="{% url 'delete_payment' payment.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn delete-btn" onclick="return confirm('Are you sure you want to delete this transaction?');">Delete</button>
+                    </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+    </section>
+    
+    
+
+</body>
+
+</html>
+{% endblock %}
