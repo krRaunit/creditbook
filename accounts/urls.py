@@ -24,6 +24,7 @@ urlpatterns = [
     path('delete-payment/<int:payment_id>/', views.delete_payment, name='delete_payment'),
     path('generate-qr/', views.generate_qr_code, name='generate-qr'),
     path('myqr/', views.my_qr_code, name='my-qr'),
+    path("healthz", health_check),
     path('scan-qr/', views.scan_qr, name='scan-qr'),
     path('export-customers-excel/', views.export_customers_excel, name='export-customers-excel'),
     

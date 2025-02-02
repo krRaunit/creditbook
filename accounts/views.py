@@ -463,3 +463,8 @@ def export_customer_profile_excel(request, username):
     wb.save(response)
 
     return response
+
+from django.http import JsonResponse
+
+def health_check(request):
+    return JsonResponse({"status": "ok"})
