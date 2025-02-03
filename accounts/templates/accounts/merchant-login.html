@@ -22,7 +22,7 @@
         }
 
         .logo {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-family: "Trebuchet MS", sans-serif;
             font-size: 64px;
             font-weight: bold;
             text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
@@ -141,6 +141,55 @@
             background-color: #000000;
             color: #ffffff;
         }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-links {
+                margin-top: 10px;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .login-section {
+                margin-top: 20px;
+                padding: 20px;
+                width: 90%;
+            }
+
+            .help-section {
+                padding: 15px;
+            }
+
+            .nav-links a {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-section {
+                padding: 15px;
+            }
+
+            .help-section {
+                padding: 10px;
+            }
+
+            .btn {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+
+            .logo {
+                font-size: 50px;
+            }
+        }
+    </style>
     </style>
 </head>
 

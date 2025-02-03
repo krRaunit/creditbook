@@ -14,7 +14,7 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: cursive;
+            font-family: "Roboto", sans-serif;
             background-color: #f3f4f6;
             background-image: url("{% static 'images/cb-bg.jpg' %}");
             background-repeat: no-repeat;
@@ -23,7 +23,7 @@
         }
 
         .logo {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-family: "Trebuchet MS", sans-serif;
             font-size: 64px;
             font-weight: bold;
             text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
@@ -319,6 +319,7 @@ td.amount {
             <h1 style="font-family: cursive;">Customer Dashboard</h1>
             <h2 style="color: rgb(232, 232, 71); font-family: Georgia;">Welcome, {{ user.username }}</h2>
             <p>Email: {{ user.email }}</p>
+            <p>Mobile: {{ user.profile.mobile }}</p>
         <br>
         {% if messages %}
         <ul>

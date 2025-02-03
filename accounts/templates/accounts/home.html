@@ -18,7 +18,7 @@
         body {
             font-family: "Roboto", sans-serif;
             color: #333;
-            background: linear-gradient(135deg, #b3daf1, #ffb6c1);
+            background-color: #f9f9f9;
             line-height: 1.6;
         }
         nav {
@@ -30,7 +30,7 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         .logo {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-family:"Trebuchet MS", sans-serif;
             font-size: 64px;
             font-weight: bold;
             text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
@@ -192,19 +192,42 @@
 
     <div class="hero">
         <div class="hero-text">
-            <h1 style="font-family: cursive;">Welcome to CreditBook</h1>
+            <h1 style="font-family: American Typewriter, serif;">Welcome to CreditBook</h1>
             <p>Your trusted partner in managing credit transactions with ease and security.</p>
            <br> 
-          <h2 style="font-family: cursive;"> Continue as... </h2>
+          <h2 style="font-family: American Typewriter, serif;"> Continue as... </h2>
            
            
             <a href="{% url 'customer-login' %}" class="btn-customer">CUSTOMER</a> &nbsp; &nbsp; &nbsp;
             <a href="{% url 'merchant-login' %}" class="btn-primary">MERCHANT</a>
         
         </div>
-        <div class="hero-image"> 
-            <img src="{% static 'images/img1.png' %}" alt="CreditBook Illustration">
+        <div class="hero-image">
+            <img id="slider-image" src="{% static 'images/img1.png' %}" alt="CreditBook Illustration">
         </div>
+        
+        <script>
+            // List of image URLs (update these with your actual static image paths)
+            const images = [
+                "{% static 'images/img1.png' %}",
+                "{% static 'images/img2.jpeg' %}",
+                "{% static 'images/img3.jpeg' %}",
+                "{% static 'images/img4.png' %}",
+                "{% static 'images/img5.jpeg' %}"
+            ];
+        
+            let currentIndex = 0; // Track current image index
+            const imgElement = document.getElementById("slider-image");
+        
+            function changeImage() {
+                currentIndex = (currentIndex + 1) % images.length; // Loop through images
+                imgElement.src = images[currentIndex];
+            }
+        
+            // Change image every 3 seconds
+            setInterval(changeImage, 3000);
+        </script>
+        
     </div>
 
     <div class="stats">
@@ -224,8 +247,9 @@
 
     <footer>
        
-        <h3>Support Mail: creditbookofficial@gmail.com </h3>
-        &copy; 2025 CreditBook. All rights reserved.
+        Support Mail: creditbookofficial@gmail.com <br> 
+        &copy; 2025 CreditBook. All rights reserved. 
+        
     </footer>
 </body>
 </html>

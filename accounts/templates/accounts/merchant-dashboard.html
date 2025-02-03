@@ -14,7 +14,7 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: cursive;
+            font-family: "Roboto", sans-serif;
             background: linear-gradient(135deg, #b3daf1, #ffb6c1);
             background-image: url("{% static 'images/cb-bg.jpg' %}");
             background-repeat: no-repeat;
@@ -95,7 +95,7 @@ form button {
 }
 
         .logo {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-family: "Trebuchet MS", sans-serif;
             font-size: 64px;
             font-weight: bold;
             text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
@@ -403,6 +403,7 @@ form button {
             <h1 style="font-family: cursive;">Merchant Dashboard</h1>
             <h2 style="color: rgb(232, 232, 71); font-family: Georgia;">Welcome, {{ user.username }}</h2>
             <p>Email: {{ user.email }}</p>
+            <p>Mobile: {{ user.profile.mobile }}</p>
              <br>
              {% if messages %}
              <ul>

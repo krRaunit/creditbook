@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
+from .models import Profile 
 from .models import Payment
 
 def home(request):
@@ -53,6 +54,7 @@ def customer_register(request):
         if password == confirm_password:
             if not User.objects.filter(username=username).exists():
                 user = User.objects.create_user(username=username, email=email, password=password)
+                Profile.objects.create(user=user, mobile=mobile)
                 messages.success(request, "Customer registered successfully!")
                 return redirect('customer-login')
             else:
@@ -85,6 +87,7 @@ def merchant_register(request):
         if password == confirm_password:
             if not User.objects.filter(username=username).exists():
                 user = User.objects.create_user(username=username, email=email, password=password)
+                Profile.objects.create(user=user, mobile=mobile)
                 messages.success(request, "Merchant registered successfully!")
                 return redirect('merchant-login')
             else:

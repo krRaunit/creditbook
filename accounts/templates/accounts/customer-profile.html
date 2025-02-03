@@ -32,7 +32,7 @@
         }
 
         .logo {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-family: "Trebuchet MS", sans-serif;
             font-size: 64px;
             font-weight: bold;
             text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
@@ -61,14 +61,14 @@
 
         .profile-section, .analytics-section {
             background-color: #fff;
-            padding: 30px;
+            padding: 20px;
             border-radius: 10px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
             margin-bottom: 40px;
         }
 
         .profile-section table {
-            width: 100%;
+            width: 70%;
             border-collapse: collapse;
         }
 
@@ -241,7 +241,16 @@
             .logo {
                 font-size: 48px;
             }
+            .credithistory {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+                white-space: nowrap;
+            } 
+           
 
+            
+            
             .container {
                 padding: 20px;
             }
@@ -255,6 +264,8 @@
                 width: 100%;
                 margin-bottom: 10px;
             }
+
+            
         }
     </style>
 </head>
@@ -358,21 +369,31 @@ updateScoreBar();
                     }
                 });
         
-                const creditLineChart = new Chart(document.getElementById("creditLineChart"), {
-                    type: 'line',
+                const creditBarChart = new Chart(document.getElementById("creditLineChart"), {
+                    type: 'bar',  // Changed from 'line' to 'bar'
                     data: {
                         labels: ["Jan", "Feb", "Mar", "Apr", "May"],
                         datasets: [{
                             label: "Credit Amount",
-                            data: [500, 700, 600, 800, 900],
-                            borderColor: "#4bc0c0",
-                            fill: false
+                            data: [500, 700, 900, 600, 300],
+                            backgroundColor: "#4bc0c0",  // Bar color
+                            borderColor: "#4bc0c0",  // Optional: Keeps a border color
+                            borderWidth: 1  // Optional: Adjusts border thickness
                         }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true  // Ensures bars start from zero
+                            }
+                        }
                     }
                 });
+                
             </script>      
             <h2>Credit History:</h2>
-            <table>
+            <table class="credithistory">
                 <thead>
                     <tr>
                         <th>Date</th>
