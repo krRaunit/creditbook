@@ -1,6 +1,8 @@
-from django.urls import path
+from django.contrib import admin
+from django.urls import path, include  # Make sure 'include' is imported if you are including other apps' URLs
 from . import views
 from .views import health_check  # or use the appropriate path
+
 
 
 urlpatterns = [
@@ -28,6 +30,7 @@ urlpatterns = [
     path('myqr/', views.my_qr_code, name='my-qr'),
     path("healthz", health_check),
     path('scan-qr/', views.scan_qr, name='scan-qr'),
+    path('admin/', admin.site.urls),
     path('export-customers-excel/', views.export_customers_excel, name='export-customers-excel'),
     
 
